@@ -24,9 +24,9 @@ export const MOCK_ABOUT = {
   server: "Bengaluru, India",
   status: "Open to Opportunities",
   bio: [
-    "I'm a motivated MCA student specializing in Artificial Intelligence and Machine Learning at Jain (Deemed-to-be University), Bengaluru. I have hands-on experience as a Python Django Full Stack Developer Intern, where I built real-world web applications and REST APIs.",
-    "I enjoy solving real problems with technology — from building accessible telemedicine systems for rural areas to creating interactive e-learning platforms. My approach combines strong backend engineering with clean frontend interfaces.",
-    "Currently focused on AI-integrated full-stack systems and deepening my Machine Learning skills through advanced coursework."
+    "I am an MCA researcher specializing in Artificial Intelligence & Machine Learning at Jain (Deemed-to-be University), Bengaluru. Drawing on practical experience as a Python Django Full-Stack Developer Intern, I engineer high-performance web systems, resilient microservices, and neural APIs.",
+    "I design digital systems to solve complex problems—from deploying accessible AI-driven telemedicine platforms for rural clinics to structuring interactive e-learning ecosystems. My engineering philosophy merges robust backend architectures with immersive, human-centric interfaces.",
+    "Currently, I am building AI-integrated full-stack environments and training deep neural models while exploring advanced architectures in Computer Vision and Natural Language Processing."
   ],
   stats: {
     years_experience: "1+",
