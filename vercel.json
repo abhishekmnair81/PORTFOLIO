@@ -8,5 +8,22 @@
       "root": "backend",
       "routePrefix": "/api"
     }
-  }
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noai, noimageai"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
+    }
+  ]
 }
