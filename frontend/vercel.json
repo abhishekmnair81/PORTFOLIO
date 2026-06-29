@@ -1,4 +1,14 @@
 {
+  "experimentalServices": {
+    "frontend": {
+      "entrypoint": "frontend",
+      "routePrefix": "/"
+    },
+    "backend": {
+      "entrypoint": "backend",
+      "routePrefix": "/api"
+    }
+  },
   "headers": [
     {
       "source": "/(.*)",
@@ -6,13 +16,13 @@
         {
           "key": "X-Robots-Tag",
           "value": "noai, noimageai"
-          }
+        }
       ]
     }
   ],
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/((?!api/).*)",
       "destination": "/index.html"
     }
   ]
