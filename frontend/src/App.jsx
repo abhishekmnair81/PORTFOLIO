@@ -20,11 +20,36 @@ import { playBootSound, startAmbientHum } from './utils/sound';
 
 function App() {
   const [activeSection, setActiveSection] = useState('hero');
-  const [neuralGridEnabled, setNeuralGridEnabled] = useState(true);
+  const [neuralGridEnabled, setNeuralGridEnabled] = useState(() => {
+    const saved = localStorage.getItem('neuralGridEnabled');
+    return saved !== null ? JSON.parse(saved) : true;
+  });
   const [achievements, setAchievements] = useState([]);
   const [isBooted, setIsBooted] = useState(false);
-  const [matrixRain, setMatrixRain] = useState(false);
-  const [crtEffects, setCrtEffects] = useState(false);
+  const [matrixRain, setMatrixRain] = useState(() => {
+    const saved = localStorage.getItem('matrixRain');
+    return saved !== null ? JSON.parse(saved) : true;
+  });
+  const [crtEffects, setCrtEffects] = useState(() => {
+    const saved = localStorage.getItem('crtEffects');
+    return saved !== null ? JSON.parse(saved) : true;
+  });
+  const [soundMuted, setSoundMuted] = useState(() => {
+    const saved = localStorage.getItem('soundMuted');
+    return saved !== null ? saved === 'true' : false;
+  });
+
+  useEffect(() => {
+    localStorage.setItem('neuralGridEnabled', JSON.stringify(neuralGridEnabled));
+  }, [neuralGridEnabled]);
+
+  useEffect(() => {
+    localStorage.setItem('matrixRain', JSON.stringify(matrixRain));
+  }, [matrixRain]);
+
+  useEffect(() => {
+    localStorage.setItem('crtEffects', JSON.stringify(crtEffects));
+  }, [crtEffects]);
 
   useEffect(() => {
     const handleToggle = () => setMatrixRain(prev => !prev);
@@ -145,6 +170,8 @@ function App() {
           setMatrixRain={setMatrixRain}
           crtEffects={crtEffects}
           setCrtEffects={setCrtEffects}
+          soundMuted={soundMuted}
+          setSoundMuted={setSoundMuted}
         />
       )}
 
@@ -153,6 +180,8 @@ function App() {
         logoName={about.data?.name} 
         neuralGridEnabled={neuralGridEnabled}
         setNeuralGridEnabled={setNeuralGridEnabled}
+        soundMuted={soundMuted}
+        setSoundMuted={setSoundMuted}
       />
       
       <motion.div

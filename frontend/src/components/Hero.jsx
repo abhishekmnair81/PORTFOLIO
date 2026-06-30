@@ -19,7 +19,7 @@ function SVGDial({ percent, valueText, label, strokeColor, glowColor }) {
         <svg className="w-full h-full transform -rotate-90" viewBox="0 0 72 72">
           {/* Main track ring */}
           <circle cx="36" cy="36" r={radius} stroke="#0d1116" strokeWidth="3" fill="transparent" />
-          
+
           {/* Progress arc */}
           <motion.circle
             cx="36"
@@ -147,22 +147,22 @@ function TelemetryWaveCanvas() {
         ctx.beginPath();
         const rLat = sphereR * Math.cos(lat);
         const yLat = sphereR * Math.sin(lat);
-        
+
         for (let i = 0; i <= 24; i++) {
           const theta = (i * Math.PI) / 12;
           const x3d = rLat * Math.cos(theta);
           const z3d = rLat * Math.sin(theta);
-          
+
           // Spin rotation around Y
           const x1 = x3d * Math.cos(rotation) - z3d * Math.sin(rotation);
           const z1 = x3d * Math.sin(rotation) + z3d * Math.cos(rotation);
-          
+
           // Tilt rotation around X
           const y2 = yLat * Math.cos(tilt) - z1 * Math.sin(tilt);
-          
+
           const sx = sphereCx + x1;
           const sy = sphereCy + y2;
-          
+
           if (i === 0) ctx.moveTo(sx, sy);
           else ctx.lineTo(sx, sy);
         }
@@ -178,14 +178,14 @@ function TelemetryWaveCanvas() {
           const x3d = sphereR * Math.cos(theta) * Math.cos(lon);
           const y3d = sphereR * Math.sin(theta);
           const z3d = sphereR * Math.cos(theta) * Math.sin(lon);
-          
+
           const x1 = x3d * Math.cos(rotation) - z3d * Math.sin(rotation);
           const z1 = x3d * Math.sin(rotation) + z3d * Math.cos(rotation);
           const y2 = y3d * Math.cos(tilt) - z1 * Math.sin(tilt);
-          
+
           const sx = sphereCx + x1;
           const sy = sphereCy + y2;
-          
+
           if (i === 0) ctx.moveTo(sx, sy);
           else ctx.lineTo(sx, sy);
         }
@@ -430,7 +430,7 @@ export default function Hero({ aboutData }) {
               </span>
               <div className="absolute top-0 right-0 w-1 h-1 bg-[#ff007f]" />
             </div>
-            
+
             <div className="bg-[#0b0e14]/95 border border-[#1b253b] px-2.5 py-1.5 flex items-center space-x-1.5">
               <span className="text-[#00f3ff] font-code text-[9px] sm:text-[10px]">LOC:</span>
               <span className="text-[#808a9d] font-code text-[9px] sm:text-[10px] font-bold uppercase tracking-wider">BLR_IND [12.97°N]</span>
@@ -457,8 +457,9 @@ export default function Hero({ aboutData }) {
             {tagline}
           </p>
 
+
           {/* XP PROGRESS BAR REQUEST */}
-          <motion.div 
+          <motion.div
             whileHover={{ scale: 1.012 }}
             transition={{ duration: 0.2 }}
             className="w-full max-w-md bg-black/60 border border-slate-900 p-3 font-code text-left relative"
@@ -470,16 +471,38 @@ export default function Hero({ aboutData }) {
             </div>
             {/* Bar track */}
             <div className="w-full h-3.5 bg-[#10141c] border border-slate-800 p-[1px] relative">
-              <motion.div 
+              <motion.div
                 initial={{ width: 0 }}
                 whileInView={{ width: '25%' }}
                 viewport={{ once: true }}
                 transition={{ duration: 1.4, ease: "easeOut", delay: 0.35 }}
-                className="h-full bg-gradient-to-r from-[#ffaa00] to-[#39ff14] shadow-[0_0_8px_rgba(57,255,20,0.5)]" 
+                className="h-full bg-gradient-to-r from-[#ffaa00] to-[#39ff14] shadow-[0_0_8px_rgba(57,255,20,0.5)]"
               />
               <span className="absolute inset-0 flex items-center justify-center text-[8px] text-white font-bold tracking-widest uppercase">
                 6 Months (Intern)
               </span>
+            </div>
+
+            {/* Sub-channel telemetry readouts */}
+            <div className="mt-3 pt-2.5 border-t border-slate-950 grid grid-cols-2 gap-3 text-[7.5px] text-[#808a9d]">
+              <div className="space-y-1">
+                <div className="flex justify-between font-bold">
+                  <span>CH_A // AI_COGNITIVE</span>
+                  <span className="text-[#ff007f]">85%</span>
+                </div>
+                <div className="h-1 bg-[#10141c] rounded-none overflow-hidden">
+                  <div className="h-full bg-[#ff007f] shadow-[0_0_4px_#ff007f]" style={{ width: '85%' }} />
+                </div>
+              </div>
+              <div className="space-y-1">
+                <div className="flex justify-between font-bold">
+                  <span>CH_B // FULLSTACK_ENG</span>
+                  <span className="text-[#00f3ff]">90%</span>
+                </div>
+                <div className="h-1 bg-[#10141c] rounded-none overflow-hidden">
+                  <div className="h-full bg-[#00f3ff] shadow-[0_0_4px_#00f3ff]" style={{ width: '90%' }} />
+                </div>
+              </div>
             </div>
           </motion.div>
 
@@ -566,7 +589,7 @@ export default function Hero({ aboutData }) {
         {/* Right Column: Telemetry Scanning Card & Server Log */}
         <div className="lg:col-span-5 flex flex-col space-y-6 items-center">
 
-          <div 
+          <div
             onMouseMove={handleMouseMove}
             className="w-full max-w-sm cyber-card-glow border border-[#1b253b] p-6 relative overflow-hidden scanner-container"
           >
@@ -610,7 +633,7 @@ export default function Hero({ aboutData }) {
           </div>
 
           {/* Scrolling System Console */}
-          <div 
+          <div
             onMouseMove={handleMouseMove}
             className="w-full max-w-sm cyber-card-glow p-4 flex flex-col h-56 border border-[#1b253b]"
           >

@@ -243,7 +243,6 @@ export default function About({ aboutData, loading, error, loadDemoData }) {
               </div>
 
             </div>
-
           </div>
 
           {/* Right Column: Bio & Core Attributes Matrix */}

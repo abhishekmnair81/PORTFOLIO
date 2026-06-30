@@ -48,6 +48,7 @@ export default function Contact({ aboutData }) {
                 SYSTEM ADDRESSES
               </h3>
 
+
               {/* Status Banner Request */}
               <div className="flex items-center space-x-2 bg-black/60 border border-slate-900 p-3">
                 <span className="w-2 h-2 bg-[#39ff14] rounded-full animate-blink flex-shrink-0" />

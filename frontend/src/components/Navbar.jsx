@@ -3,10 +3,16 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { playClickSound, toggleMute, isMuted } from '../utils/sound';
 import DecryptedText from './ui/DecryptedText';
 
-export default function Navbar({ activeSection = "hero", logoName, neuralGridEnabled, setNeuralGridEnabled }) {
+export default function Navbar({ 
+  activeSection = "hero", 
+  logoName, 
+  neuralGridEnabled, 
+  setNeuralGridEnabled,
+  soundMuted,
+  setSoundMuted
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [cursorBlink, setCursorBlink] = useState(true);
-  const [muted, setMuted] = useState(isMuted());
   const [timeStr, setTimeStr] = useState('');
 
   // HUD Color Themes
@@ -91,7 +97,7 @@ export default function Navbar({ activeSection = "hero", logoName, neuralGridEna
 
   const handleMuteToggle = () => {
     const val = toggleMute();
-    setMuted(val);
+    setSoundMuted(val);
     if (!val) {
       playClickSound();
     }
@@ -170,9 +176,9 @@ export default function Navbar({ activeSection = "hero", logoName, neuralGridEna
             <button
               onClick={handleMuteToggle}
               className="hidden sm:inline-block px-2.5 py-1 bg-[#10141c] border border-[#1b253b] hover:border-[#00f3ff] hover:text-[#00f3ff] text-[#808a9d] transition-all font-code text-[9px] cursor-pointer select-none"
-              title={muted ? "Unmute system core audio" : "Mute system core audio"}
+              title={soundMuted ? "Unmute system core audio" : "Mute system core audio"}
             >
-              {muted ? "AUDIO_OFF" : "AUDIO_ON"}
+              {soundMuted ? "AUDIO_OFF" : "AUDIO_ON"}
             </button>
 
             {/* Mobile Hamburger */}
@@ -225,7 +231,7 @@ export default function Navbar({ activeSection = "hero", logoName, neuralGridEna
                 onClick={handleMuteToggle}
                 className="py-2.5 bg-[#10141c] border border-slate-800 text-slate-350 text-center font-code text-[10px] cursor-pointer"
               >
-                {muted ? "AUDIO: OFF" : "AUDIO: ON"}
+                {soundMuted ? "AUDIO: OFF" : "AUDIO: ON"}
               </button>
               <button
                 onClick={() => { playClickSound(); setNeuralGridEnabled(!neuralGridEnabled); }}

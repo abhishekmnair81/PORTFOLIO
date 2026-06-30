@@ -203,6 +203,24 @@ export default function WelcomeSplash({ onEnter }) {
       {/* Sweeping Laser Line Scanning effect */}
       <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#00f3ff]/30 to-transparent animate-[bounce_4.5s_infinite] pointer-events-none z-[3]" />
 
+      {/* Corner HUD Data Labels */}
+      <div className="absolute top-4 left-4 font-code text-[7px] text-slate-500 flex flex-col space-y-0.5 tracking-widest uppercase z-10">
+        <span>[ BIOMETRIC_ID: AUTHORIZED ]</span>
+        <span>[ STATUS: DECRYPT_SUCCESS ]</span>
+      </div>
+      <div className="absolute top-4 right-4 font-code text-[7px] text-slate-500 flex flex-col space-y-0.5 tracking-widest uppercase items-end z-10">
+        <span>[ IP_ADDR: SECURE ]</span>
+        <span>[ NODE: AMN_OS_GUEST ]</span>
+      </div>
+      <div className="absolute bottom-4 left-4 font-code text-[7px] text-slate-500 flex flex-col space-y-0.5 tracking-widest uppercase z-10">
+        <span>[ CORE_VER: v4.18_AES ]</span>
+        <span>[ SYSTEM_HZ: 60Hz ]</span>
+      </div>
+      <div className="absolute bottom-4 right-4 font-code text-[7px] text-slate-500 flex flex-col space-y-0.5 tracking-widest uppercase items-end z-10">
+        <span>[ REGION: APAC_IN ]</span>
+        <span>[ LATENCY: 22MS ]</span>
+      </div>
+
       {/* Main Terminal Frame */}
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
@@ -230,6 +248,20 @@ export default function WelcomeSplash({ onEnter }) {
 
         {/* Central Holographic Gyroscope Reactor Core */}
         <HolographicCore isLoaded={isLoaded} />
+
+        {/* High-tech Glowing Progress Bar */}
+        <div className="w-full space-y-1 my-1">
+          <div className="flex justify-between items-center text-[7.5px] font-code text-[#ffaa00]">
+            <span>SYSTEM_READY: {Math.floor((bootStep / telemetrySequence.length) * 100)}%</span>
+            <span>SECTOR_0{bootStep}</span>
+          </div>
+          <div className="w-full h-1.5 bg-black border border-slate-900 p-[1px] relative overflow-hidden">
+            <div 
+              className="h-full bg-gradient-to-r from-[#00f3ff] via-[#ffaa00] to-[#39ff14] transition-all duration-300 shadow-[0_0_8px_#39ff14]"
+              style={{ width: `${(bootStep / telemetrySequence.length) * 100}%` }}
+            />
+          </div>
+        </div>
 
         {/* Brand/User Identity Header */}
         <div className="text-center space-y-0.5">

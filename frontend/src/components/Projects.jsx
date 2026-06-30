@@ -81,6 +81,13 @@ function ProjectSchematic({ techStack = [] }) {
 
 export default function Projects({ projectsData, loading, error, loadDemoData }) {
   const [openSchematicId, setOpenSchematicId] = useState(null);
+  const [activeFilter, setActiveFilter] = useState('ALL');
+
+  const filters = [
+    { id: 'ALL', label: 'ALL_BUILDS' },
+    { id: 'AI', label: 'AI_ML_COGNITIVE' },
+    { id: 'FULLSTACK', label: 'FULL_STACK_TELEMETRY' },
+  ];
 
   const handleMouseMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -121,9 +128,25 @@ export default function Projects({ projectsData, loading, error, loadDemoData })
     return (a.order || 0) - (b.order || 0);
   });
 
+  const filteredProjects = sortedProjects.filter(project => {
+    if (activeFilter === 'ALL') return true;
+    
+    const tech = Array.isArray(project.tech_stack) 
+      ? project.tech_stack.join(', ').toLowerCase() 
+      : (project.technologies ? project.technologies.toLowerCase() : '');
+      
+    if (activeFilter === 'AI') {
+      return tech.includes('ml') || tech.includes('ai') || tech.includes('yolo') || tech.includes('vision') || tech.includes('nlp') || tech.includes('learning') || tech.includes('tensorflow') || tech.includes('keras');
+    }
+    if (activeFilter === 'FULLSTACK') {
+      return tech.includes('react') || tech.includes('django') || tech.includes('api') || tech.includes('rest') || tech.includes('sql') || tech.includes('postgres') || tech.includes('js') || tech.includes('javascript') || tech.includes('tailwind') || tech.includes('css') || tech.includes('html');
+    }
+    return true;
+  });
+
   return (
     <section id="projects" className="px-4 py-20 bg-[#070708] border-b border-[#1b253b]">
-      <div className="max-w-5xl mx-auto space-y-12">
+      <div className="max-w-5xl mx-auto space-y-8">
         
         {/* Section Header */}
         <div className="text-center">
@@ -135,9 +158,46 @@ export default function Projects({ projectsData, loading, error, loadDemoData })
           <p className="font-sans text-xs text-[#808a9d] mt-2">Access blueprint blueprints, active build files, and source trees</p>
         </div>
 
+        {/* Filter Tabs */}
+        <div className="flex flex-wrap gap-2 justify-center pb-2">
+          {filters.map(f => {
+            const count = sortedProjects.filter(p => {
+              if (f.id === 'ALL') return true;
+              const tech = Array.isArray(p.tech_stack) 
+                ? p.tech_stack.join(', ').toLowerCase() 
+                : (p.technologies ? p.technologies.toLowerCase() : '');
+              if (f.id === 'AI') {
+                return tech.includes('ml') || tech.includes('ai') || tech.includes('yolo') || tech.includes('vision') || tech.includes('nlp') || tech.includes('learning') || tech.includes('tensorflow') || tech.includes('keras');
+              }
+              if (f.id === 'FULLSTACK') {
+                return tech.includes('react') || tech.includes('django') || tech.includes('api') || tech.includes('rest') || tech.includes('sql') || tech.includes('postgres') || tech.includes('js') || tech.includes('javascript') || tech.includes('tailwind') || tech.includes('css') || tech.includes('html');
+              }
+              return true;
+            }).length;
+
+            const isActive = activeFilter === f.id;
+            return (
+              <button
+                key={f.id}
+                onClick={() => { playClickSound(); setActiveFilter(f.id); }}
+                className={`font-hud text-[9px] tracking-widest px-3 py-1.5 border transition-all duration-200 cursor-pointer select-none flex items-center space-x-2 ${
+                  isActive
+                    ? 'border-[#39ff14] text-[#39ff14] bg-[#39ff14]/5 shadow-[0_0_8px_rgba(57,255,20,0.15)] font-bold'
+                    : 'border-slate-900 bg-[#0d1118]/45 text-[#808a9d] hover:border-slate-700 hover:text-white'
+                }`}
+              >
+                <span>{f.label}</span>
+                <span className={`text-[8px] font-code px-1 py-0.5 rounded-none font-bold ${isActive ? 'bg-[#39ff14] text-black' : 'bg-slate-900 text-slate-500'}`}>
+                  {count.toString().padStart(2, '0')}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
         {/* Project Blueprint Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {sortedProjects.map((project) => {
+          {filteredProjects.map((project) => {
             const techList = Array.isArray(project.tech_stack) 
               ? project.tech_stack 
               : (project.technologies ? project.technologies.split(',') : []);
@@ -252,7 +312,7 @@ export default function Projects({ projectsData, loading, error, loadDemoData })
             );
           })}
 
-          {sortedProjects.length === 0 && (
+          {filteredProjects.length === 0 && (
             <div className="col-span-full text-center py-12 bg-[#0b0e14]/50 border border-dashed border-slate-800">
               <span className="font-hud text-xs text-[#808a9d]">[ SHOWROOM GARAGE EMPTY // SYSTEM OFFLINE ]</span>
             </div>
